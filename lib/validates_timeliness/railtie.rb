@@ -2,7 +2,7 @@ module ValidatesTimeliness
   class Railtie < Rails::Railtie
     initializer "validates_timeliness.initialize_active_record", :after => 'active_record.initialize_timezone' do
       ActiveSupport.on_load(:active_record) do
-        default_timezone = if ActiveRecord::VERSION::MAJOR >= 7
+        default_timezone = if ActiveRecord.respond_to?(:default_timezone)
                              ActiveRecord.default_timezone
                            else
                              ActiveRecord::Base.default_timezone
